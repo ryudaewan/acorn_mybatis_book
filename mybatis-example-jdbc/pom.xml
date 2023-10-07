@@ -15,17 +15,4 @@
     <version>0.0.1.BUILD-SNAPSHOT</version>
 
     <name>mybatis-example-jdbc</name>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <mainClass>ldg.mybatis.CommentJdbcRepositoryTest</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

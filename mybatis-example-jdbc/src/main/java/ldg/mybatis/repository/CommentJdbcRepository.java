@@ -1,4 +1,4 @@
-package ldg.mybatis.repository.session;
+package ldg.mybatis.repository;
 
 import ldg.mybatis.model.Comment;
 
