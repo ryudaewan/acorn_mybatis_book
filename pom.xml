@@ -11,7 +11,9 @@
     <url>https://github.com/ryudaewan/mybatis-example/</url>
     <modules>
         <module>mybatis-example-jdbc</module>
+        <module>mybatis-example-java</module>
     </modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
