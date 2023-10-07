@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,44 +32,95 @@ public class CommentRepository {
     }
 
     private SqlSessionFactory createFactory() {
-        InputStream inputStream;
+        SqlSessionFactory factory = null;
+        String mybatisConfig = "mybatis-config.xml";
 
-        try {
-            inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        try (InputStream is = Resources.getResourceAsStream(mybatisConfig);){
+            factory = (new SqlSessionFactoryBuilder()).build(is);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
 
-        return (new SqlSessionFactoryBuilder()).build(inputStream);
+        return factory;
     }
 
     public Comment selectCommentByPrimaryKey(long commentNo) {
         String statement = this.className + "selectCommentByPrimaryKey";
+        Comment comment = null;
 
-        return this.getSeesion().selectOne(statement, commentNo);
+        try (SqlSession session = this.getSeesion();) {
+            comment = session.selectOne(statement, commentNo);
+        }
+
+        return comment;
     }
 
     public List<Comment> selectCommentByCondition(Map<String, Object> condition) {
         String statement = this.className + "selectCommentByCondition";
+        List<Comment> comments = null;
 
-        return this.getSeesion().selectList(statement, condition);
+        try (SqlSession session = this.getSeesion();) {
+            comments = session.selectList(statement, condition);
+        }
+
+        return null == comments ? new ArrayList<>() : comments;
     }
 
     public int insertComment(Comment comment) {
         String statement = this.className + "insertComment";
+        int rowCnt = 0;
+        SqlSession session = null;
 
-        return this.getSeesion().insert(statement, comment);
+        try {
+            session = this.getSeesion();
+            rowCnt = session.insert(statement, comment);
+
+            if (rowCnt > 0) session.commit();
+        } catch (Exception ex) {
+            if (null != session) session.rollback();
+        } finally {
+            if (null != session) session.close();
+        }
+
+        return rowCnt;
     }
 
     public int updateComment(Comment comment) {
         String statement = this.className + "updateComment";
+        int rowCnt = 0;
+        SqlSession session = null;
 
-        return this.getSeesion().update(statement, comment);
+        try {
+            session = this.getSeesion();
+            rowCnt = session.update(statement, comment);
+
+            if (rowCnt > 0) session.commit();
+        } catch (Exception ex) {
+            if (null != session) session.rollback();
+        } finally {
+            if (null != session) session.close();
+        }
+
+        return rowCnt;
     }
 
     public int deleteComment(Long commentNo) {
         String statement = this.className + "deleteComment";
 
-        return this.getSeesion().delete(statement, commentNo);
+        int rowCnt = 0;
+        SqlSession session = null;
+
+        try {
+            session = this.getSeesion();
+            rowCnt = session.delete(statement, commentNo);
+
+            if (rowCnt > 0) session.commit();
+        } catch (Exception ex) {
+            if (null != session) session.rollback();
+        } finally {
+            if (null != session) session.close();
+        }
+
+        return rowCnt;
     }
 }
