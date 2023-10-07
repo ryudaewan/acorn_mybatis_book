@@ -10,3 +10,6 @@ target
 # Ignore IntelliJ IDEA generated directory
 .idea
 out
+
+# Ignore VS Code directory
+.vscode
