@@ -1,7 +1,6 @@
-package ldg.mybatis;
+package ldg.mybatis.repository;
 
 import ldg.mybatis.model.Comment;
-import ldg.mybatis.repository.session.CommentJdbcRepository;
 
 import java.util.*;
 
