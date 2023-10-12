@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ldg.mybatis</groupId>
+        <artifactId>mybatis-example</artifactId>
+        <version>0.0.1.BUILD-SNAPSHOT</version>
+    </parent>
+
+    <!--<groupId>ldg.mybatis</groupId>-->
+    <artifactId>mybatis-example-web</artifactId>
+    <version>0.0.1.BUILD-SNAPSHOT</version>
+
+    <name>mybatis-example-web</name>
+    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+
+        <!-- Jakarta Servlet 6.0 API -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>mybatis-example-web</finalName>
+        <plugins>
+            <plugin>
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <packagingExcludes>META-INF/*</packagingExcludes>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!--
+                 Jetty Plugin에 대한 상세한 사항은
+                https://eclipse.dev/jetty/documentation/jetty-10/programming-guide/index.html#maven-and-jetty
+                참고 요망
+            -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>11.0.16</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
