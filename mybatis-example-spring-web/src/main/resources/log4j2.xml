@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Appenders>
+        <Console name="console">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p](%-35c{1}:%-3L) %m%n"/>
+            <!-- %L 옵션은 줄 수를 출력하나 속도 저하가 심하다. -->
+            <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p](%-30c{1}) %m%n" />-->
+        </Console>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" additivity="false">
+            <level value="DEBUG"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.jdbc.core.JdbcTemplate" additivity="false">
+            <level value="DEBUG"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.jdbc.core.StatementCreatorUtils" additivity="false">
+            <level value="TRACE"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Logger name="org.mybatis" additivity="false">
+            <level value="DEBUG"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="ldg.mybatis" additivity="false">
+            <level value="INFO"/>
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Root level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>
