@@ -12,4 +12,4 @@ acorn_mybatis_book
 * 이클립스 워크스페이스 export한 소스 -> IDE 의존성 제거하고 Maven 3.9.5 적용
 * MySQL -> PostgreSQL로 변경
 * JUnit 4 -> JUnit 5로 변경
-* 현대적인 자바 코드(ex. try with resource) 아는 한 최대한 적용
+* JDK 1.6 이후 새로 생긴 현대적인 자바 문법(ex. try with resource, 람다식 등)을 생각나는 한 최대한 적용
