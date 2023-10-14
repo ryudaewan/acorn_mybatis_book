@@ -4,7 +4,7 @@
 //XML만으로 매핑구문과 결과매핑 처리
 //CommentMapperResultMap.xml의 selectCommentByPrimaryKeyAssociation매핑구문
 Long commentNo = null;
-String temp = request.getParameter("commentNo"));
+String temp = request.getParameter("commentNo");
 
 if (false == StringUtils.isNotEmpty(temp)) {
     throw new IllegalArgumentException("commentNo is Null");
@@ -19,7 +19,7 @@ try {
 CommentMapperResultMapService commentService = new CommentMapperResultMapService();
 CommentUser commentUser = commentService.selectCommentByPrimaryKeyAssociation2(commentNo);
 
-if (null == comments) {%>
+if (null == commentUser) {%>
     <%= "조회 결과 없음" %><%
     return;
 }

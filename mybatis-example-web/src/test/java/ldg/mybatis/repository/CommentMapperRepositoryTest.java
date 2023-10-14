@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CommentMapperRepositoryTest {
     private static final Long commentNo = 1L;
@@ -23,7 +24,7 @@ public class CommentMapperRepositoryTest {
     public void testSelectCommentByPrimaryKey() {
         Comment comment = commentMapperRepository.selectCommentByPrimaryKey(commentNo);
 
-        assertThat(comment).isNotNull();
+        assertNotNull(comment);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class CommentMapperRepositoryTest {
 
         List<Comment> comments = commentMapperRepository.selectCommentByCondition(condition);
 
-        assertThat(comments.size()).isEqualTo(1);
+        assertEquals(comments.size(), 1);
     }
 
     @Test
@@ -42,14 +43,14 @@ public class CommentMapperRepositoryTest {
         commentMapperRepository.deleteComment(commentNo);
         Integer integer = commentMapperRepository.insertComment(getComment());
 
-        assertThat(integer).isEqualTo(1);
+        assertEquals(integer, 1);
     }
 
     @Test
     public void testDeleteComment() {
         Integer integer = commentMapperRepository.deleteComment(commentNo);
 
-        assertThat(integer).isEqualTo(1);
+        assertEquals(integer, 1);
     }
 
     private Comment getComment() {

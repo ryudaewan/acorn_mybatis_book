@@ -28,7 +28,7 @@ public interface CommentMapperResultMap {
      * @return
      */
     @Select({"SELECT c.comment_no, c.user_id, c.comment_content, c.reg_date, u.user_name ",
-            "FROM comment c, user u ",
+            "FROM comment c, users u ",
             "WHERE c.user_id = u.user_id ",
             "AND c.comment_no = #{commentNo}  "})
     @Results({

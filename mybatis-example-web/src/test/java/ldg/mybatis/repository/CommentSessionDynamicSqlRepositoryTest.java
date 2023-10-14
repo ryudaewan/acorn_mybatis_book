@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class CommentSessionDynamicSqlRepositoryTest {
     private final CommentSessionDynamicSqlRepository commentSessionDynamicSqlRepository = new CommentSessionDynamicSqlRepository();
@@ -21,19 +22,21 @@ public class CommentSessionDynamicSqlRepositoryTest {
         condition.put("commentNo", 1L);
         condition.put("user", makeUser());
 
-        List<Comment> comments = commentSessionDynamicSqlRepository.selectCommentByCondition(condition);
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectCommentByCondition(condition);
 
-        assertThat(comments.size()).isGreaterThanOrEqualTo(1);
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
     public void testSelectCommentByConditionIf() {
-        Map<String, Object> condition = new HashMap<String, Object>();
+        Map<String, Object> condition = new HashMap<>();
         condition.put("commentNo", 1L);
         condition.put("user", makeUser());
 
-        commentSessionDynamicSqlRepository.selectCommentByConditionIf(condition);
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectCommentByConditionIf(condition);
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
@@ -42,8 +45,9 @@ public class CommentSessionDynamicSqlRepositoryTest {
         condition.put("commentNo", 1L);
         condition.put("user", makeUser());
 
-        commentSessionDynamicSqlRepository.selectCommentByConditionChoose(condition);
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectCommentByConditionChoose(condition);
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
@@ -52,8 +56,9 @@ public class CommentSessionDynamicSqlRepositoryTest {
         condition.put("commentNo", 1L);
         condition.put("user", makeUser());
 
-        commentSessionDynamicSqlRepository.selectCommentByConditionTrim(condition);
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectCommentByConditionTrim(condition);
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
@@ -61,29 +66,33 @@ public class CommentSessionDynamicSqlRepositoryTest {
         Map<String, Object> condition = new HashMap<String, Object>();
         condition.put("commentNos", Arrays.asList(1L, 2L));
 
-        commentSessionDynamicSqlRepository.selectCommentByConditionForeach(condition);
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectCommentByConditionForeach(condition);
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
     public void testSelectOgnlStaticField() {
-        commentSessionDynamicSqlRepository.selectOgnlStaticField();
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectOgnlStaticField();
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
     public void testSelectOgnlStaticMethod() {
-        commentSessionDynamicSqlRepository.selectOgnlStaticMethod();
-        fail();
+        List<Comment> actual = commentSessionDynamicSqlRepository.selectOgnlStaticMethod();
+        //fail();
+        assertTrue(1 <= actual.size());
     }
 
     @Test
     public void testSelectOgnlStaticMethod2() {
-        Map<String, Object> condition = new HashMap<String, Object>();
+        Map<String, Object> condition = new HashMap<>();
         condition.put("userId", "fromm0");
 
-        commentSessionDynamicSqlRepository.selectOgnlStaticMethod2(condition);
-        fail();
+        List<User> actual = commentSessionDynamicSqlRepository.selectOgnlStaticMethod2(condition);
+        //fail();
+        assertEquals(0, actual.size());
     }
 
     private User makeUser() {

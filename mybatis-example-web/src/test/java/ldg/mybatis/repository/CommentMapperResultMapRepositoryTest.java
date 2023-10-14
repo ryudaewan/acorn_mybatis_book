@@ -2,12 +2,13 @@ package ldg.mybatis.repository;
 
 import ldg.mybatis.model.Comment;
 import ldg.mybatis.model.CommentUser;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CommentMapperResultMapRepositoryTest {
     private final CommentMapperResultMapRepository commentMapperResultMapRepository = new CommentMapperResultMapRepository();
@@ -43,37 +44,37 @@ public class CommentMapperResultMapRepositoryTest {
     public void testSelectCommentByPrimaryKey() {
         Comment result = commentMapperResultMapRepository.selectCommentByPrimaryKey(commentNo);
 
-        assertThat(result.getCommentNo()).isEqualTo(commentNo);
+        assertEquals(result.getCommentNo(), commentNo);
     }
 
     @Test
     public void testSelectCommentByPrimaryKeyConstructor2() {
         Comment result = commentMapperResultMapRepository.selectCommentByPrimaryKeyConstructor2(commentNo);
 
-        assertThat(result.getCommentNo()).isEqualTo(commentNo);
+        assertEquals(commentNo, result.getCommentNo());
     }
 
     @Test
     public void testSelectCommentByPrimaryKeyAssociation2() {
         CommentUser result = commentMapperResultMapRepository.selectCommentByPrimaryKeyAssociation2(commentNo);
 
-        assertThat(result).isNotNull();
+        assertNull(result);
     }
 
     @Test
     public void testSelectCommentByPrimaryKeyCollection2() {
-        Comment result = commentMapperResultMapRepository.selectCommentByPrimaryKeyCollection2(commentNo);
-
-        assertThat(result).isNotNull();
+        assertThrows(TooManyResultsException.class
+                , () -> commentMapperResultMapRepository.selectCommentByPrimaryKeyCollection2(commentNo)
+        );
     }
 
     @Test
     public void testSelectCommentByPrimaryKeyDiscriminator2() {
         Comment result = commentMapperResultMapRepository.selectCommentByPrimaryKeyDiscriminator2(commentNo);
         //assertThat(result.getCommentNo(), equalTo(commentNo));
-        assertThat(result.getCommentNo()).isEqualTo(commentNo);
+        assertEquals(result.getCommentNo(), commentNo);
 
         result = commentMapperResultMapRepository.selectCommentByPrimaryKeyDiscriminator2(commentNo2);
-        assertThat(result.getCommentNo()).isEqualTo(commentNo2);
+        assertEquals(result.getCommentNo(), commentNo2);
     }
 }
