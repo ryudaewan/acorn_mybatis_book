@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--
+    classpathEntry 대신 pom.xml에서 MyBatis Generator Maven Plugin이 구동할 때 필요한 JDBC 드리아버를 classpath에
+    추가하도록 설정하였다.
+    <classPathEntry location="C:\MyDevEnv\workspace\mybatis_books\mybatis_generator\lib\mysql-connector-java-5.1.14.jar" />
+    -->
+
+    <!--
+        targetRuntime 값은 MyBatis3Simple, MyBatis3DynamicSql, MyBatis3Kotlin, MyBatis3 중 하나.
+        각 값의 의미는 http://mybatis.org/generator/quickstart.html 를 참조.
+    -->
+    <context id="PgSQLTables" targetRuntime="MyBatis3Simple">
+        <!-- 자동으로 생성되는 주석 제거 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 데이터베이스 연결정보 -->
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/mybatis_example"
+                        userId="mybatis"
+                        password="mybatis">
+        </jdbcConnection>
+
+        <!-- 자바 타입과 컬럼 타입을 맞추기 위한 부가 정보 설정 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 테이블마다 만들어지는 모델 클래스에 대한 설정 -->
+        <javaModelGenerator targetPackage="ldg.mybatis.model" targetProject="src/main/java">
+            <!--javaModelGenerator targetPackage="ldg.mybatis.model"  targetProject="C:/MyDevEnv/workspace/mybatis_books/mybatis_generator"-->
+            <!--property name="constructorBased" value="true" />
+            <property name="immutable" value="true" /-->
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 매퍼 XML에 대한 설정 -->
+        <sqlMapGenerator targetPackage="ldg.mybatis.repository.mapper" targetProject="src/main/resources">
+            <!--sqlMapGenerator targetPackage="ldg.mybatis.repository.mapper" targetProject="C:/MyDevEnv/workspace/mybatis_books/mybatis_generator"-->
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 매퍼 XML과 매퍼 인터페이스 방식 선택, type값은 ANNOTATEDMAPPER, MIXEDMAPPER, XMLMAPPER 중 선택  -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="ldg.mybatis.repository.mapper"
+                             targetProject="src/main/java">
+            <!--javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="ldg.mybatis.repository.mapper"
+                targetProject="C:/MyDevEnv/workspace/mybatis_books/mybatis_generator"-->
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 생성대상 테이블 정보 -->
+        <table schema="public" tableName="comment" domainObjectName="Comment">
+            <property name="useActualColumnNames" value="false"/>
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+            <generatedKey column="comment_no" sqlStatement="SELECT lastval()" identity="true" type="post"/>
+        </table>
+        <table schema="public" tableName="reply" domainObjectName="Reply">
+            <property name="useActualColumnNames" value="false"/>
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+            <generatedKey column="reply_no" sqlStatement="SELECT lastval()" identity="true" type="post"/>
+        </table>
+    </context>
+</generatorConfiguration>
